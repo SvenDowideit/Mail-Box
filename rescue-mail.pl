@@ -7,7 +7,8 @@ use Carp;
 
 #grab all the mbox files from ~/.icedove/*/*/..... and make their folders in ./Maildir and import the messages
 my $start_dir =
-  '/home/sven/.icedove/j6dh73g0.default/ImapMail/mail.home.org.au/';
+#  '/home/sven/.icedove/j6dh73g0.default/ImapMail/mail.home.org.au/';
+  '/data/backups/mail_quiet/mail.home.org.au/';
 
 unlink('Maildir.lock');    #i'm developing
 
