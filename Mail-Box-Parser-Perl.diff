@@ -1,0 +1,22 @@
+diff --git a/5.10.1/Mail/Box/Parser/Perl.pm b/5.10.1/Mail/Box/Parser/Perl.pm
+index 9a9fbd7..0ccbe24 100644
+--- a/5.10.1/Mail/Box/Parser/Perl.pm
++++ b/5.10.1/Mail/Box/Parser/Perl.pm
+@@ -156,8 +156,15 @@ sub _read_stripped_lines(;$$)
+                 or last LINE;
+ 
+             foreach my $sep (@seps)
+-            {   next if substr($line, 0, length $sep) ne $sep;
+-                next if $sep eq 'From ' && $line !~ m/ 19[789]\d| 20[012]\d/;
++            {   
++		$line =~ s/(\cM)//;
++		my $icedove = $1;
++		next if substr($line, 0, length $sep) ne $sep;
++		if (defined($icedove)) {
++		#	print STDERR "--- ($sep) $line (icedove)\n";
++		} else {
++                	next if $sep eq 'From ' && $line !~ m/ 19[789]\d| 20[012]\d/;
++		}
+ 
+                 $file->setpos($where);
+                 $msgend = $file->tell;
