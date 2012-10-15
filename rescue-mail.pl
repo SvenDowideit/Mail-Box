@@ -60,8 +60,8 @@ sub process {
     return if ( $file =~ /(\.msf|\.dat|Trash)$/ );
 
     #return unless ( $file =~ /SPAM/ );
-    return unless ( $file =~ /Serial/ );
-    return unless ( $file =~ /Super/ );
+    #return unless ( $file =~ /Serial/ );
+    #return unless ( $file =~ /Super/ );
 
     #say $file;
     import_mail($start_dir, $file);
@@ -71,11 +71,12 @@ sub import_mail {
     my $start_dir = shift;
     my $file = shift;
 
-    $file =~ /$start_dir(.*?)(-[1-9])?$/;
+    $file =~ /$start_dir(.*)$/;
     #make the foldername the way dovecot wants
     my $folder_name = '.'.$1;
     $folder_name =~ s/\.sbd//g;
     $folder_name =~ s/\//./g;
+    $folder_name =~ s/-[1-9]//g;
     say $folder_name;
 
     #TODO: consider extracting and using mbox subfolder_extension
